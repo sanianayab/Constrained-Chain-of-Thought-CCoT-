@@ -10,10 +10,7 @@ from datasets import load_dataset
 def generate_answers(dataset, output_len):
     url = "http://127.0.0.1:18081/generate"
     headers = {'Content-Type': 'application/json'}
-    parameters = {"max_tokens": 512,
-            	  "temperature": 0.5
-                 }
-
+    parameters = {"max_new_tokens": 200}
 
     all_chars = [chr(i) for i in range(sys.maxunicode)]
     control_chars = ''.join(c for c in all_chars if unicodedata.category(c) == 'Cc')
@@ -96,7 +93,7 @@ output_len =  30 # You can change this value as needed
 fields, rows = generate_answers(test_dataset, output_len)
 
 # Save the list of rows to a CSV file
-with open(f'ReasoningLimit-answersL7_gsm8k-CCoTZeroShot_outputlen_{output_len}.csv', 'w', newline='') as csvfile:
+with open(f'answers-gsm8k-CCoTZeroShot_outputlen_{output_len}.csv', 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(rows)
