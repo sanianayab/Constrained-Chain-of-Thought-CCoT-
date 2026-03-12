@@ -30,7 +30,7 @@
     rows = []
     
     # Load gsm8k[test] dataset
-    maindataset = load_dataset('gsm8k', 'main')
+    maindataset = load_dataset('openai/gsm8k', 'main')
     dataset = maindataset['test']
     
     for example in dataset:
