@@ -36,9 +36,8 @@
     for example in dataset:
         question = example['question_concat'].strip()
         
-        # Extract the number after the last "####" and any spaces
-        match = re.search(r'####\s*(-?\d+)$', example['answer'])
-        gt_answer_number = match.group(1).replace(',', '') if match else ""
+        # Extract the ground truth number
+        gt_answer_number = example['Answer'].strip()
     
         data = {'inputs': question, "parameters": parameters}
     
