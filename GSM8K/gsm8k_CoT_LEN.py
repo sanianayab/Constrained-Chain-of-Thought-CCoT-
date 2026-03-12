@@ -96,7 +96,7 @@ output_len =  30 # You can change this value as needed
 fields, rows = generate_answers(test_dataset, output_len)
 
 # Save the list of rows to a CSV file
-with open(f'ReasoningLimit-answersL7_gsm8k-CCoTZeroShot_outputlen_{output_len}.csv', 'w', newline='') as csvfile:
+with open(f'answers_gsm8k-CCoTZeroShot_outputlen_{output_len}.csv', 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(rows)
