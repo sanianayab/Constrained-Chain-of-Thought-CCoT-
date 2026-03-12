@@ -34,7 +34,7 @@
     dataset = maindataset['test']
     
     for example in dataset:
-        question = example['question'].strip()
+        question = example['question_concat'].strip()
         
         # Extract the number after the last "####" and any spaces
         match = re.search(r'####\s*(-?\d+)$', example['answer'])
