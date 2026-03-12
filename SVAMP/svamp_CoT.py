@@ -33,9 +33,8 @@ def generate_answers(dataset):
         # Append the prompt ["Let's think step by step"] after the question
         question_with_prompt = f"{question} Let's think step by step"
 
-        # Extract the number after the last "####" and any spaces
-        match = re.search(r'####\s*(-?\d+)$', example['answer'])
-        gt_answer_number = match.group(1).replace(',', '') if match else ""
+        # Extract the ground truth number 
+        gt_answer_number = example['Answer'].strip()
 
         data = {'inputs': question_with_prompt, "parameters": parameters}
 
