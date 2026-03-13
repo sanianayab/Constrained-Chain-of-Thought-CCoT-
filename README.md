@@ -1,4 +1,4 @@
-[![arXiv](https://img.shields.io/badge/arXiv-2508.03772-b31b1b.svg)]([https://arxiv.org/abs/2508.03772](https://arxiv.org/abs/2407.19825))
+[![arXiv](https://img.shields.io/badge/arXiv-2407.19825-b31b1b.svg)]([https://arxiv.org/abs/2508.03772](https://arxiv.org/abs/2407.19825))
 [![Paper](https://img.shields.io/badge/Paper-PDF-blue)](https://arxiv.org/pdf/2508.03772.pdf)
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
