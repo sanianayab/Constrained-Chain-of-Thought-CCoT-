@@ -81,7 +81,7 @@ def generate_answers(dataset):
 
     return fields, rows
 
-# Load gsm8k[test] dataset
+# Load dataset
 main_dataset = load_dataset('yimingzhang/asdiv')
 test_dataset = main_dataset['test']
 
