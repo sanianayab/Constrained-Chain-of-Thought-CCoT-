@@ -13,3 +13,20 @@ Stop the Verbosity! Chain-of-Thought (CoT) prompting has revolutionized LLM reas
 📊 Novel Metrics: Move beyond simple accuracy. We introduce HCA, SCA, and CCA metrics that evaluate the trade-off between correctness and conciseness.
 
 🔍 Deep Insights: New scores to measure Redundancy (RMS) and Information Flow ($\mathcal{I}$) to understand how models compress logic.
+
+
+
+
+
+
+
+
+📚 Citation
+If you find this work useful for your research, please cite our paper:
+
+@article{nayab2024concise,
+  title={Concise Thoughts: Impact of Output Length on LLM Reasoning and Cost},
+  author={Nayab, Sania and Rossolini, Giulio and Simoni, Marco and Saracino, Andrea and Buttazzo, Giorgio and Manes, Nicolamaria and Giacomelli, Fabrizio},
+  journal={arXiv preprint arXiv:2407.19825},
+  year={2024}
+}
