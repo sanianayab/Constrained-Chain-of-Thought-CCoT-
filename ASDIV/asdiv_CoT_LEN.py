@@ -10,8 +10,7 @@ from datasets import load_dataset
 def generate_answers(dataset, output_len):
     url = "http://127.0.0.1:18081/generate"
     headers = {'Content-Type': 'application/json'}
-    parameters = {"max_tokens": 512,
-            	  "temperature": 0.5
+    parameters = {"max_tokens": 200,
                  }
 
 
@@ -84,7 +83,7 @@ def generate_answers(dataset, output_len):
 
     return fields, rows
 
-# Load gsm8k[test] dataset
+# Load dataset
 main_dataset = load_dataset('yimingzhang/asdiv')
 test_dataset = main_dataset['test']
 
