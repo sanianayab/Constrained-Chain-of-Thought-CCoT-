@@ -4,6 +4,4 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
 
 # Constrained-Chain-of-Thought-CCoT-
-🧠 Constrained-CoT (CCoT)
-
 Stop the Verbosity! Chain-of-Thought (CoT) prompting has revolutionized LLM reasoning, but it comes with a hidden cost: excessive verbosity, high latency, and unpredictable generation times. CCoT is a refined prompt engineering strategy that empowers you to control the reasoning length of LLMs without sacrificing accuracy. By explicitly limiting output length, CCoT delivers concise, predictable, and cost-effective reasoning.
