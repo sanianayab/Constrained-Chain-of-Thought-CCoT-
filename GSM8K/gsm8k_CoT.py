@@ -82,7 +82,7 @@ def generate_answers(dataset):
 
     return fields, rows
 
-# Load gsm8k[test] dataset
+# Load dataset
 main_dataset = load_dataset('openai/gsm8k', 'main')
 test_dataset = main_dataset['test']
 
