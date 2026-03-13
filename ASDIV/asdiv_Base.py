@@ -29,7 +29,7 @@
     fields = ["TOTAL TIME", "VALIDATION TIME", "QUEUE TIME", "TIME PER TOKEN", "REQUEST TIME", "INFERENCE TIME", "I-LEN", "O-LEN", "QUESTION", "GENERATED ANSWER", "GROUND TRUTH ANSWER"]
     rows = []
     
-    # Load gsm8k[test] dataset
+    # Load dataset
     maindataset = load_dataset('yimingzhang/asdiv')
     dataset = maindataset['test']
     
