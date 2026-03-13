@@ -10,8 +10,7 @@ from datasets import load_dataset
 def generate_answers(dataset, output_len):
     url = "http://127.0.0.1:18081/generate"
     headers = {'Content-Type': 'application/json'}
-    parameters = {"max_tokens": 200,
-                 }
+    parameters = {"max_new_tokens": 200}
 
 
     all_chars = [chr(i) for i in range(sys.maxunicode)]
