@@ -10,6 +10,6 @@ Stop the Verbosity! Chain-of-Thought (CoT) prompting has revolutionized LLM reas
 
 📏 Length-Aware Reasoning: Control the output length (e.g., "limit to 30 words") to optimize for inference time and cost.
 
-📊 Novel Metrics: Move beyond simple accuracy. We introduce HCA, SCA, and CCA—metrics that evaluate the trade-off between correctness and conciseness.
+📊 Novel Metrics: Move beyond simple accuracy. We introduce HCA, SCA, and CCA metrics that evaluate the trade-off between correctness and conciseness.
 
 🔍 Deep Insights: New scores to measure Redundancy (RMS) and Information Flow ($\mathcal{I}$) to understand how models compress logic.
