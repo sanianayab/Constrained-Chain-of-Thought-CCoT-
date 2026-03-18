@@ -5,11 +5,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from bert_score import score as bert_score
 from tqdm import tqdm  # Importa tqdm per la barra di avanzamento
 import os
-# Funzione per calcolare la similarità con SequenceMatcher
+
 def calculate_similarity_sequence(str1, str2):
     return SequenceMatcher(None, str1, str2).ratio()
 
-# Funzione per calcolare la similarità con TF-IDF
+
 def calculate_similarity_tfidf(steps):
     try:
         vectorizer = TfidfVectorizer()
@@ -17,13 +17,13 @@ def calculate_similarity_tfidf(steps):
         similarity_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
         redundancy_scores = [
             sum(row) / (len(row) - 1) for row in similarity_matrix
-        ]  # Escludi la diagonale
+        ]  
         return redundancy_scores
     except Exception as e:
         print(f"Errore TF-IDF: {e}")
         return [0.0]
 
-# Funzione per calcolare la similarità con BERTScore
+
 import torch
 from bert_score import score as bert_score
 
@@ -50,13 +50,13 @@ def calculate_similarity_bert(steps):
         return [0.0]
 
 
-# Funzione generale per calcolare le ridondanze
+
 def calculate_redundancy(answer, method="sequence"):
     try:
         if not isinstance(answer, str) or len(answer.strip()) == 0:
-            return [0.0]  # Se la risposta è vuota o non valida, ritorna 0
-        steps = sent_tokenize(answer)  # Tokenizzazione in frasi
-        if len(steps) < 2:  # Se c'è un solo step, la ridondanza è 0
+            return [0.0]  
+        steps = sent_tokenize(answer)  
+        if len(steps) < 2:  
             return [0.0]
 
         if method == "sequence":
@@ -80,21 +80,21 @@ def calculate_redundancy(answer, method="sequence"):
         return [0.0]  # Ritorna 0 in caso di errore
 
 def process_csv(input_folder, output_folder):
-    # Caricamento del file CSV
+   
     file_path = input_folder
     data = pd.read_csv(file_path)
 
-    # Controlla quante righe ci sono nel dataset
+  
     print(f"TOTAL QUESTIONS IN THE DATASET: {len(data)}")
 
-    # Assicurati che le colonne siano valide
+    
     if 'QUESTION' not in data.columns or 'GENERATED ANSWER' not in data.columns:
         raise ValueError("Il dataset non contiene le colonne 'QUESTION' o 'GENERATED ANSWER'.")
 
-    # Integra tqdm per le barre di avanzamento
+  
     tqdm.pandas()
 
-    # Calcolo della ridondanza per ogni risposta con i diversi metodi
+    
     print('[!] COMPUTING DISTRIBUTION USING: Sequence Matcher')
     data['Redundancy Distribution Sequence'] = data['GENERATED ANSWER'].progress_apply(lambda x: calculate_redundancy(x, method="sequence"))
     data['Redundancy Mean Sequence'] = data['Redundancy Distribution Sequence'].progress_apply(lambda x: sum(x) / len(x) if x else 0)
@@ -107,10 +107,9 @@ def process_csv(input_folder, output_folder):
     # data['Redundancy Distribution BERT'] = data['GENERATED ANSWER'].progress_apply(lambda x: calculate_redundancy(x, method="bert"))
     # data['Redundancy Mean BERT'] = data['Redundancy Distribution BERT'].progress_apply(lambda x: sum(x) / len(x) if x else 0)
 
-    # Salva i risultati in un nuovo CSV
     data.to_csv(output_folder, index=False)
 
-    # Mostra i risultati principali
+    
     #print(data[['QUESTION', 'Redundancy Mean Sequence', 'Redundancy Mean TFIDF', 'Redundancy Mean BERT']].head())
     print(data[['QUESTION', 'Redundancy Mean Sequence', 'Redundancy Mean TFIDF']].head())
     print(data[['QUESTION', 'Redundancy Distribution Sequence', 'Redundancy Distribution TFIDF']].head())
@@ -118,12 +117,12 @@ def process_csv(input_folder, output_folder):
 input_folder = r"Falcon 40b-Results"
 output_folder = r". . ."
 
-# Crea la cartella di output se non esiste
+
 os.makedirs(output_folder, exist_ok=True)
 
-# Itera su tutti i file CSV nella directory
+
 for filename in os.listdir(input_folder):
-    if filename.endswith('.csv'):  # Controlla che sia un file CSV
+    if filename.endswith('.csv'):  
         input_csv = os.path.join(input_folder, filename)
         output_csv = os.path.join(output_folder, f"redundancy_{filename}")
         process_csv(input_csv, output_csv)
