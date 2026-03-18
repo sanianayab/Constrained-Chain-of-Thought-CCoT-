@@ -1,4 +1,4 @@
-directory = r"...\CCoT_Tests\GSM8K-ResFiles\ZeroShot\Llama-2-70b-chat-hf - hubResults"
+directory = r"...\"
 
 def extract_last_number(text):
     if isinstance(text, str):
