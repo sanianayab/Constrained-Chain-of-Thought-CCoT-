@@ -10,7 +10,7 @@ Chain-of-Thought (CoT) prompting has revolutionized large language model (LLM) r
 
 ## CCoT Diagram
 ![CCoT Diagram](Images/CCoT.png)  
-_Figure 1: CCoT Framework Overview_
+_Figure 1: CCoT Overview_
 
 ---
 
@@ -60,7 +60,7 @@ CCoT allows you to set clear boundaries on the reasoning steps, making the model
 CCoT delivers better **accuracy** with reduced reasoning steps. Below is the comparison:
 
 ![Accuracy Comparison](Images/AccCCoT.png)  
-_Figure 3: Accuracy comparison between traditional chain-of-thought and CCoT._
+_Figure 3: Accuracy comparison evaluated using plain prompts (base), CoT, and CCoT under different len-constraints._
 
 ---
 
@@ -68,7 +68,7 @@ _Figure 3: Accuracy comparison between traditional chain-of-thought and CCoT._
 CCoT significantly reduces the reasoning length without compromising accuracy. Below is the comparison of the output length for a reasoning task with and without applying the CCoT constraint.
 
 ![Length Comparison](Images/lengthCCoT.png)  
-_Figure 2: Length comparison between traditional chain-of-thought and CCoT._
+_Figure 2: Distribution of output lengths in terms of words (left plots) and tokens (right plots), for prompting strategies using the GSM8K test set._
 
 ---
 
