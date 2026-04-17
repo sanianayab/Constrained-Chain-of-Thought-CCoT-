@@ -96,7 +96,7 @@ The motivation behind this work stems from its integration into a project with *
 
 ## 🤝 Contribution
 
-We welcome contributions from the research community! To contribute, please fork the repository and submit pull requests with your improvements. For detailed contributing guidelines, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+We welcome contributions from the research community! To contribute, please fork the repository and submit pull requests with your improvements. 
 
 ---
 
