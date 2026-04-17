@@ -5,6 +5,10 @@
 
 # Constrained-Chain-of-Thought-CCoT-
 Stop the Verbosity! Chain-of-Thought (CoT) prompting has revolutionized LLM reasoning, but it comes with a hidden cost: excessive verbosity, high latency, and unpredictable generation times. CCoT is a refined prompt engineering strategy that empowers you to control the reasoning length of LLMs without sacrificing accuracy. By explicitly limiting output length, CCoT delivers concise, predictable, and cost-effective reasoning.
+## CCoT Diagram
+<p align="center">
+  <img src="Images/CCoT.png" alt="CCoT Diagram">
+</p>
 
 # 🚀 Key Features
 
