@@ -86,20 +86,6 @@ _Figure 2: Distribution of output lengths in terms of words (left plots) and tok
 
 ---
 
-## 🤝 Contribution
-
-We welcome contributions from the research community! To contribute, please fork the repository and submit pull requests with your improvements. For detailed contributing guidelines, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-## 🙏 Acknowledgments
-
-This work was carried out at the **Department of Excellence in Robotics and AI, TeCIP**, **Scuola Superiore Sant'Anna**.
-
-The motivation behind this work stems from its integration into a project with **Mediavoice s.r.l.**, Rome, Italy. Special thanks to Mediavoice for providing the collaboration that allowed this study to be conducted.
-
----
-
 ## 📚 Citation
 
 If you use **CCoT** in your research, please cite the following paper 
@@ -111,6 +97,19 @@ If you use **CCoT** in your research, please cite the following paper
   journal={arXiv preprint arXiv:2407.19825},
   year={2024}
 }
+
+---
+## 🙏 Acknowledgments
+
+This work was carried out at the **Department of Excellence in Robotics and AI, TeCIP**, **Scuola Superiore Sant'Anna**.
+
+The motivation behind this work stems from its integration into a project with **Mediavoice s.r.l.**, Rome, Italy. Special thanks to Mediavoice for providing the collaboration that allowed this study to be conducted.
+
+---
+
+## 🤝 Contribution
+
+We welcome contributions from the research community! To contribute, please fork the repository and submit pull requests with your improvements. For detailed contributing guidelines, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 
 
