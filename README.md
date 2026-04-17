@@ -86,19 +86,6 @@ _Figure 2: Distribution of output lengths in terms of words (left plots) and tok
 
 ---
 
-## 📚 Citation
-
-If you use **CCoT** in your research, please cite the following paper 
-
-```bibtex
-@article{nayab2024concise,
-  title={Concise thoughts: Impact of output length on LLM reasoning and cost},
-  author={Nayab, Sania and Rossolini, Giulio and Simoni, Marco and Saracino, Andrea and Buttazzo, Giorgio and Manes, Nicolamaria and Giacomelli, Fabrizio},
-  journal={arXiv preprint arXiv:2407.19825},
-  year={2024}
-}
-
----
 ## 🙏 Acknowledgments
 
 This work was carried out at the **Department of Excellence in Robotics and AI, TeCIP**, **Scuola Superiore Sant'Anna**.
@@ -111,10 +98,19 @@ The motivation behind this work stems from its integration into a project with *
 
 We welcome contributions from the research community! To contribute, please fork the repository and submit pull requests with your improvements. For detailed contributing guidelines, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
+---
 
+## 📚 Citation
 
+If you use **CCoT** in your research, please cite the following paper:
 
-
+```bibtex
+@article{nayab2024concise,
+  title={Concise thoughts: Impact of output length on LLM reasoning and cost},
+  author={Nayab, Sania and Rossolini, Giulio and Simoni, Marco and Saracino, Andrea and Buttazzo, Giorgio and Manes, Nicolamaria and Giacomelli, Fabrizio},
+  journal={arXiv preprint arXiv:2407.19825},
+  year={2024}
+}
 
 
 
