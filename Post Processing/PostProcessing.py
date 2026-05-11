@@ -6,7 +6,7 @@ import os
 import pandas as pd
 from datasets import load_dataset
 
-directory = r"/home/s.nayab/CCoT-LLM/ResultsNewBaselines/"
+directory = r"... CCoT-LLM/Results/"
 
 def extract_last_number(text):
     if not isinstance(text, str):
