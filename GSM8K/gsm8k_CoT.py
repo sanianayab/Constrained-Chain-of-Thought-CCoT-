@@ -1,84 +1,97 @@
-import re
-import time
-import requests
 import csv
-import os
-import pandas as pd
+import time
+import re
+import requests
+import docker
+import unicodedata
+import sys
 from datasets import load_dataset
 
-directory = r"/home/s.nayab/CCoT-LLM/ResultsNewBaselines/"
+def generate_answers(dataset):
+    url = "http://127.0.0.1:18081/generate"
+    headers = {'Content-Type': 'application/json'}
+    parameters = {"max_new_tokens": 200}
 
-def extract_last_number(text):
-    if not isinstance(text, str):
-        return None
 
-    numbers = re.findall(r'\$?\d+(?:\.\d+)?', text)
+    all_chars = [chr(i) for i in range(sys.maxunicode)]
+    control_chars = ''.join(c for c in all_chars if unicodedata.category(c) == 'Cc')
+    expanded_class = ''.join(c for c in all_chars if re.match(r'[\x00-\x1f\x7f-\x9f]', c))
+    control_chars == expanded_class
 
-    answer_is_number = re.search(
-        r'(?:the\s+)?answer\s+is\s+\$?(\d+(?:\.\d+)?)',
-        text,
-        re.IGNORECASE
-    )
+    data_re = re.compile(".+total_time=\"(.+s)\" validation_time=\"(.+s)\" queue_time=\"(.+s)\" inference_time=\"(.+s)\" time_per_token=\"(.+s)\".+")
 
-    if answer_is_number:
-        numbers.append(answer_is_number.group(1))
+    client = docker.from_env()
+    dklogs = client.containers.get('textgen001').logs(stream=True, follow=True, tail=1)
+    logline = next(dklogs).decode("utf-8")
 
-    # For: Answer: Ellen has 15 balls. Explanation: ...
-    answer_section = re.search(
-        r'Answer:\s*(.*?)(?:Explanation:|$)',
-        text,
-        re.IGNORECASE | re.DOTALL
-    )
+    # Create a list to store the rows from the CSV file
+    fields = ["TOTAL TIME", "VALIDATION TIME", "QUEUE TIME", "TIME PER TOKEN", "REQUEST TIME", "INFERENCE TIME", "I-LEN", "O-LEN", "QUESTION", "GENERATED ANSWER", "GROUND TRUTH ANSWER"]
+    rows = []
 
-    if answer_section:
-        answer_numbers = re.findall(r'\$?\d+(?:\.\d+)?', answer_section.group(1))
-        if answer_numbers:
-            numbers.append(answer_numbers[-1].replace('$', ''))
+    for example in dataset:
+        question = example['question'].strip()
 
-    return float(numbers[-1].replace('$', '')) if numbers else None
+        # Append both prompts to the question
+        question_with_prompts = f"{question} \nLet's think step by step."
 
-def parse_and_update_accuracy(answer_file_path):
-    df = pd.read_csv(answer_file_path)
+        # Extract the number after the last "####" and any spaces
+        match = re.search(r'####\s*(-?\d+)$', example['answer'])
+        gt_answer_number = match.group(1).replace(',', '') if match else ""
 
-    accuracy = 0
-    df['Accuracy'] = False
+        data = {'inputs': question_with_prompts, "parameters": parameters}
 
-    for index, row in df.iterrows():
+        start = time.time()
+        res = requests.post(url, json=data, headers=headers)
+        end = time.time()
 
-        if 'GROUND TRUTH ANSWER float' in df.columns:
-            gt_answer = row['GROUND TRUTH ANSWER float']
+        logline_cc = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', next(dklogs).decode('utf-8'))
+        logline = re.sub(r'\[\dm', '', logline_cc)
+        m = data_re.search(logline)
+
+        if m:
+            total_time = m.group(1)
+            validation_time = m.group(2)
+            queue_time = m.group(3)
+            inference_time = m.group(4)
+            time_per_token = m.group(5)
         else:
-            gt_answer = row['GROUND TRUTH ANSWER']
+            total_time = 0
+            validation_time = 0
+            queue_time = 0
+            inference_time = 0
+            time_per_token = 0
 
-        generated_answer = row['GENERATED ANSWER']
+        if res.status_code == 200:
+            answer = res.json()
+            generated_text = answer['generated_text'][1:].replace("\n", " ").replace("\r", "")
 
-        extracted_number = extract_last_number(generated_answer)
+            input_length = len(question.split())
+            output_length = len(generated_text.split())
 
-        try:
-            gt_answer = float(gt_answer)
-        except:
-            gt_answer = extract_last_number(str(gt_answer))
+            # Add "REQUEST TIME and other computation times" to the row data
+            row = [total_time, validation_time, queue_time, time_per_token, end - start, inference_time, input_length, output_length, question, generated_text, gt_answer_number]
 
-        if (
-            extracted_number is not None 
-            and gt_answer is not None 
-            and extracted_number == gt_answer
-        ):
-            accuracy += 1
-            df.at[index, 'Accuracy'] = True
-        else:
-            df.at[index, 'Accuracy'] = False
+            # Append the row to the list
+            rows.append(row)
 
-    total_questions = len(df)
-    accuracy_percentage = (accuracy / total_questions) * 100
+            if len(question) > 30:
+                question_print = question[:30] + "..."
+            else:
+                question_print = question
 
-    file_name = os.path.basename(answer_file_path)
-    print(f'{file_name}: Accuracy = {accuracy_percentage:.2f}%')
+            print(f"Got answer for question: {question_print}")
 
-    df.to_csv(answer_file_path, index=False)
+    return fields, rows
 
-for filename in os.listdir(directory):
-    if filename.endswith(".csv"):
-        file_path = os.path.join(directory, filename)
-        parse_and_update_accuracy(file_path)
+# Load dataset
+main_dataset = load_dataset('openai/gsm8k', 'main')
+test_dataset = main_dataset['test']
 
+# Generate answers with the specified output length
+fields, rows = generate_answers(test_dataset)
+
+# Save the list of rows to a CSV file
+with open(f'answers_gsm8k-CoTZeroShot.csv', 'w', newline='') as csvfile:
+    csvwriter = csv.writer(csvfile)
+    csvwriter.writerow(fields)
+    csvwriter.writerows(rows)
