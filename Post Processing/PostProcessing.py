@@ -23,7 +23,7 @@ def extract_last_number(text):
     if answer_is_number:
         numbers.append(answer_is_number.group(1))
 
-    # For: Answer: Ellen has 15 balls. Explanation: ...
+   
     answer_section = re.search(
         r'Answer:\s*(.*?)(?:Explanation:|$)',
         text,
